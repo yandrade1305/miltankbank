@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: miltankbank
+  datasource:
+    url: jdbc:postgresql://localhost:5436/db_miltankbank
+    username: miltankbank_web
+    password: 13052001
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
