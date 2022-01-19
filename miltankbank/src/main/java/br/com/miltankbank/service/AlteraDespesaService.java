@@ -8,23 +8,22 @@ import org.springframework.stereotype.Service;
 import br.com.miltankbank.form.DespesaForm;
 import br.com.miltankbank.model.dto.DespesaDTO;
 import br.com.miltankbank.service.acao.AcaoCadastroDespesa;
-import br.com.miltankbank.service.executor.cadastro.ExecutorCadastroDespesa;
+import br.com.miltankbank.service.executor.altera.ExecutorAlteraDespesa;
 
 @Service
-public class CadastroDespesaService {
+public class AlteraDespesaService {
     private final DetalhaDespesaService detalhaDespesaService;
+    private final ExecutorAlteraDespesa despesa;
     private List<AcaoCadastroDespesa> acoes = new ArrayList<>();
-    private final ExecutorCadastroDespesa despesa;
 
-
-    public CadastroDespesaService(DetalhaDespesaService detalhaDespesaService, List<AcaoCadastroDespesa> acoes, ExecutorCadastroDespesa despesa) {
+    public AlteraDespesaService(DetalhaDespesaService detalhaDespesaService, ExecutorAlteraDespesa despesa,
+            List<AcaoCadastroDespesa> acoes) {
         this.despesa = despesa;
         this.detalhaDespesaService = detalhaDespesaService;
-       adicionaAcoes();
+        adicionaAcoes();
     }
 
-    public DespesaDTO cadastrar(DespesaForm despesaForm){
-        acoes.forEach(acao -> acao.executa(despesaForm));
+    public DespesaDTO altera(DespesaForm despesaForm){
         return detalhaDespesaService.obterPor(despesaForm.getIdDespesa());
     }
 
@@ -33,5 +32,4 @@ public class CadastroDespesaService {
         acoes.add(despesa);
     }
 
-    
 }

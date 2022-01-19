@@ -3,7 +3,7 @@ package br.com.miltankbank.service.executor.abstracts;
 import br.com.miltankbank.form.ReceitaForm;
 import br.com.miltankbank.model.entity.Receita;
 import br.com.miltankbank.model.repository.ReceitaRepository;
-import br.com.miltankbank.service.AcaoCadastroReceita;
+import br.com.miltankbank.service.acao.AcaoCadastroReceita;
 
 public class AbstractExecutorCadastroReceita implements AcaoCadastroReceita{
 

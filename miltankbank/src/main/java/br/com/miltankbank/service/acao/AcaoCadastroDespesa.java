@@ -1,4 +1,4 @@
-package br.com.miltankbank.service;
+package br.com.miltankbank.service.acao;
 
 import br.com.miltankbank.form.DespesaForm;
 
