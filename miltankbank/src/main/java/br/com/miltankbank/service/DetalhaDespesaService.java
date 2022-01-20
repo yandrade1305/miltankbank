@@ -1,5 +1,6 @@
 package br.com.miltankbank.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -23,5 +24,9 @@ public class DetalhaDespesaService {
             return despesaDTO;
         }
         return new DespesaDTO();
+    }
+
+    public List<Despesa> obterPorDescricao(String descricaoDespesa) {
+        return despesaRepository.findByDescricaoDespesa(descricaoDespesa);
     }
 }

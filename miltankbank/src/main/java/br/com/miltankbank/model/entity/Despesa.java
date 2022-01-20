@@ -37,6 +37,7 @@ public class Despesa {
     }
 
     public Despesa (DespesaForm despesa){
+        this.idDespesa = despesa.getIdDespesa();
         this.descricaoDespesa = despesa.getDescricaoDespesa();
         this.valorDespesa = despesa.getValorDespesa();
         this.dataDespesa = despesa.getDataDespesa();

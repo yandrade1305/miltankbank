@@ -37,6 +37,7 @@ public class Receita {
     }
 
     public Receita (ReceitaForm receitaForm){
+        this.idReceita = receitaForm.getIdReceita();
         this.descricaoReceita = receitaForm.getDescricaoReceita();
         this.valorReceita = receitaForm.getValorReceita();
         this.dataReceita = receitaForm.getDataReceita();

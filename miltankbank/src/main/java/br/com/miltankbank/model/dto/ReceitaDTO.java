@@ -19,4 +19,21 @@ public class ReceitaDTO {
         this.valorReceita = receita.getValorReceita();
         this.dataReceita = receita.getDataReceita();
     }
+
+    public Long getIdReceita() {
+        return this.idReceita;
+    }
+
+    public String getDescricaoReceita() {
+        return this.descricaoReceita;
+    }
+
+    public BigDecimal getValorReceita() {
+        return this.valorReceita;
+    }
+
+    public LocalDate getDataReceita() {
+        return this.dataReceita;
+    }
+
 }

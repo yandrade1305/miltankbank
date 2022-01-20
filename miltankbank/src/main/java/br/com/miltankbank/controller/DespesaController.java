@@ -23,7 +23,7 @@ import br.com.miltankbank.service.ExcluiDespesaService;
 import br.com.miltankbank.service.ListarDespesaService;
 
 @RestController
-@RequestMapping(path = "/despesa")
+@RequestMapping(path = "/despesas")
 public class DespesaController {
     
     private final CadastroDespesaService cadastroDespesaService;
@@ -47,8 +47,8 @@ public class DespesaController {
         return ResponseEntity.created(URI.create("")).body(cadastroDespesaService.cadastrar(despesaForm));
     }
 
-    @PutMapping
-    public ResponseEntity<DespesaDTO> alterarDespesa(@RequestBody DespesaForm despesaForm){
+    @PutMapping(path = "/{idDespesa}")
+    public ResponseEntity<DespesaDTO> alterarDespesa(@RequestBody DespesaForm despesaForm, @PathVariable Long idDespesa){
         return ResponseEntity.ok(alteraDespesaService.altera(despesaForm));
     }
 
@@ -59,11 +59,15 @@ public class DespesaController {
 
     @GetMapping(path = "/{idDespesa}")
     public ResponseEntity<DespesaDTO> detalhaBeneficiario(@PathVariable Long idDespesa){
-        return ResponseEntity.ok(detalhaDespesaService.obterPor(idDespesa));
+        DespesaDTO despesa = detalhaDespesaService.obterPor(idDespesa);
+        if (despesa.getIdDespesa() == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(despesa);
     }
 
     @GetMapping
-    public ResponseEntity<List<ListarDespesaDTO>> listarBeneficiarios(){
+    public ResponseEntity<List<ListarDespesaDTO>> listarDespesas(){
         return ResponseEntity.ok(listarDespesaService.listarDespesas());
     }
 }

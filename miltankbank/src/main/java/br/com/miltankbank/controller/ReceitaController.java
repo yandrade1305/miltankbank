@@ -23,7 +23,7 @@ import br.com.miltankbank.service.ExcluiReceitaService;
 import br.com.miltankbank.service.ListarReceitaService;
 
 @RestController
-@RequestMapping(path = "/receita")
+@RequestMapping(path = "/receitas")
 public class ReceitaController {
     
     private final CadastroReceitaService cadastroReceitaService;
@@ -47,8 +47,8 @@ public class ReceitaController {
         return ResponseEntity.created(URI.create("")).body(cadastroReceitaService.cadastrar(receitaForm));
     }
 
-    @PutMapping
-    public ResponseEntity<ReceitaDTO> alterarReceita(@RequestBody ReceitaForm receitaForm){
+    @PutMapping(path = "/{idReceita}")
+    public ResponseEntity<ReceitaDTO> alterarReceita(@RequestBody ReceitaForm receitaForm, @PathVariable Long idReceita){
         return ResponseEntity.ok(alteraReceitaService.altera(receitaForm));
     }
 
@@ -58,12 +58,16 @@ public class ReceitaController {
     }
 
     @GetMapping(path = "/{idReceita}")
-    public ResponseEntity<ReceitaDTO> detalhaBeneficiario(@PathVariable Long idReceita){
-        return ResponseEntity.ok(detalhaReceitaService.obterPor(idReceita));
+    public ResponseEntity<ReceitaDTO> detalhaReceita(@PathVariable Long idReceita){
+        ReceitaDTO receita = detalhaReceitaService.obterPor(idReceita);
+        if (receita.getIdReceita() == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(receita);
     }
 
     @GetMapping
-    public ResponseEntity<List<ListarReceitaDTO>> listarBeneficiarios(){
+    public ResponseEntity<List<ListarReceitaDTO>> listarReceitas(){
         return ResponseEntity.ok(listarReceitaService.listarReceitas());
     }
 }

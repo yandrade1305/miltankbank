@@ -47,12 +47,12 @@ public class ReceitaRepositoryTest {
         receitaRepository.save(receita);
         receita.setDescricaoReceita("Ganhei da campeã Cynthia");
         receita.setValorReceita(BigDecimal.valueOf(13200L));
-        receita.setDataReceita(LocalDate.of(2022, 12, 26));
+        receita.setDataReceita(LocalDate.of(2021, 12, 26));
         Receita receitaAlteradaSalva = receitaRepository.save(receita);
         assertNotNull(receitaAlteradaSalva);
         assertEquals("Ganhei da campeã Cynthia", receitaAlteradaSalva.getDescricaoReceita());
         assertEquals(BigDecimal.valueOf(13200L), receitaAlteradaSalva.getValorReceita());
-        assertEquals(LocalDate.of(2022, 12, 26), receitaAlteradaSalva.getDataReceita());
+        assertEquals(LocalDate.of(2021, 12, 26), receitaAlteradaSalva.getDataReceita());
     }
 
     @Test

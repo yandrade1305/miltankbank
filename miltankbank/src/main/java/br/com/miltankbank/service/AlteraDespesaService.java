@@ -24,6 +24,7 @@ public class AlteraDespesaService {
     }
 
     public DespesaDTO altera(DespesaForm despesaForm){
+        acoes.forEach(acao -> acao.executa(despesaForm));
         return detalhaDespesaService.obterPor(despesaForm.getIdDespesa());
     }
 

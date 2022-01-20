@@ -24,6 +24,7 @@ public class AlteraReceitaService {
     }
 
     public ReceitaDTO altera(ReceitaForm receitaForm) {
+        acoes.forEach(acao -> acao.executa(receitaForm));
         return detalhaReceitaService.obterPor(receitaForm.getIdReceita());
     }
 

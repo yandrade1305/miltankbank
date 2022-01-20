@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.miltankbank.form.ReceitaForm;
 import br.com.miltankbank.model.dto.ReceitaDTO;
+import br.com.miltankbank.model.entity.Receita;
 import br.com.miltankbank.service.acao.AcaoCadastroReceita;
 import br.com.miltankbank.service.executor.cadastro.ExecutorCadastroReceita;
 
@@ -23,6 +24,10 @@ public class CadastroReceitaService {
     }
 
     public ReceitaDTO cadastrar(ReceitaForm receitaForm){
+        List<Receita> listaReceitas = detalhaReceitaService.obterPorDescricao(receitaForm.getDescricaoReceita());
+        if (listaReceitas.isEmpty() == false) {
+            throw new RuntimeException("Já existe uma receita cadastrada com descrição informada");
+        }
         acoes.forEach(acao -> acao.executa(receitaForm));
         return detalhaReceitaService.obterPor(receitaForm.getIdReceita());
     }

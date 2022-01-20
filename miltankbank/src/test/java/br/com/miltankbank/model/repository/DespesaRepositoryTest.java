@@ -48,12 +48,12 @@ public class DespesaRepositoryTest {
         despesaRepository.save(despesa);
         despesa.setDescricaoDespesa("Hyper Potion");
         despesa.setValorDespesa(BigDecimal.valueOf(1200L));
-        despesa.setDataDespesa(LocalDate.of(2022, 12, 25));
+        despesa.setDataDespesa(LocalDate.of(2021, 12, 25));
         Despesa despesaAlteradaSalva = despesaRepository.save(despesa);
         assertNotNull(despesaAlteradaSalva);
         assertEquals("Hyper Potion", despesaAlteradaSalva.getDescricaoDespesa());
         assertEquals(BigDecimal.valueOf(1200L), despesaAlteradaSalva.getValorDespesa());
-        assertEquals(LocalDate.of(2022, 12, 25), despesaAlteradaSalva.getDataDespesa());
+        assertEquals(LocalDate.of(2021, 12, 25), despesaAlteradaSalva.getDataDespesa());
     }
 
     @Test

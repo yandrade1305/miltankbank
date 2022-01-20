@@ -25,7 +25,7 @@ public class ReceitaControllerTest {
     @Rollback(false)
     public void deveCadastrarReceita() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders
-            .post("/receita")
+            .post("/receitas")
             .content(cadastro)
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isCreated());

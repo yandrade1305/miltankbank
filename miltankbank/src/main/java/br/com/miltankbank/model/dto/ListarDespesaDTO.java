@@ -15,4 +15,17 @@ public class ListarDespesaDTO {
         this.valorDespesa = despesa.getValorDespesa();
         this.dataDespesa = despesa.getDataDespesa();
     }
+
+    public String getDescricaoDespesa() {
+        return this.descricaoDespesa;
+    }
+
+    public BigDecimal getValorDespesa() {
+        return this.valorDespesa;
+    }
+
+    public LocalDate getDataDespesa() {
+        return this.dataDespesa;
+    }
+
 }

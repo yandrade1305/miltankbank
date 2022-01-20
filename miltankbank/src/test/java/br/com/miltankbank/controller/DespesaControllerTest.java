@@ -25,7 +25,7 @@ public class DespesaControllerTest {
     @Rollback(false)
     public void deveCadastrarDespesa() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders
-            .post("/despesa")
+            .post("/despesas")
             .content(cadastro)
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isCreated());
