@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.miltankbank.exceptions.ReceitaDuplicadaException;
 import br.com.miltankbank.form.ReceitaForm;
 import br.com.miltankbank.model.dto.ListarReceitaDTO;
 import br.com.miltankbank.model.dto.ReceitaDTO;
@@ -43,13 +44,22 @@ public class ReceitaController {
     }
 
     @PostMapping
-    public ResponseEntity<ReceitaDTO> cadastrarReceita(@RequestBody ReceitaForm receitaForm){
-        return ResponseEntity.created(URI.create("")).body(cadastroReceitaService.cadastrar(receitaForm));
+    public ResponseEntity<?> cadastrarReceita(@RequestBody ReceitaForm receitaForm){
+        try {
+            return ResponseEntity.created(URI.create("")).body(cadastroReceitaService.cadastrar(receitaForm));   
+        } catch (ReceitaDuplicadaException ex) {
+            return ResponseEntity.badRequest().body(ex.getMensagem());
+        }
     }
 
     @PutMapping(path = "/{idReceita}")
-    public ResponseEntity<ReceitaDTO> alterarReceita(@RequestBody ReceitaForm receitaForm, @PathVariable Long idReceita){
-        return ResponseEntity.ok(alteraReceitaService.altera(receitaForm));
+    public ResponseEntity<?> alterarReceita(@RequestBody ReceitaForm receitaForm, @PathVariable Long idReceita){
+        try {
+            return ResponseEntity.ok(alteraReceitaService.altera(receitaForm));    
+        } catch (ReceitaDuplicadaException ex) {
+            return ResponseEntity.badRequest().body(ex.getMensagem());
+        }
+        
     }
 
     @DeleteMapping(path = "/{idReceita}")

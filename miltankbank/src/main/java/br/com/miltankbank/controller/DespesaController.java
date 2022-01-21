@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.miltankbank.exceptions.DespesaDuplicadaException;
 import br.com.miltankbank.form.DespesaForm;
 import br.com.miltankbank.model.dto.DespesaDTO;
 import br.com.miltankbank.model.dto.ListarDespesaDTO;
@@ -43,13 +44,23 @@ public class DespesaController {
     }
 
     @PostMapping
-    public ResponseEntity<DespesaDTO> cadastrarDespesa(@RequestBody DespesaForm despesaForm){
-        return ResponseEntity.created(URI.create("")).body(cadastroDespesaService.cadastrar(despesaForm));
+    public ResponseEntity<?> cadastrarDespesa(@RequestBody DespesaForm despesaForm){
+        try {
+            return ResponseEntity.created(URI.create("")).body(cadastroDespesaService.cadastrar(despesaForm));
+        } catch (DespesaDuplicadaException ex) {
+            return ResponseEntity.badRequest().body(ex.getMensagem());
+        }
+        
     }
 
     @PutMapping(path = "/{idDespesa}")
-    public ResponseEntity<DespesaDTO> alterarDespesa(@RequestBody DespesaForm despesaForm, @PathVariable Long idDespesa){
-        return ResponseEntity.ok(alteraDespesaService.altera(despesaForm));
+    public ResponseEntity<?> alterarDespesa(@RequestBody DespesaForm despesaForm, @PathVariable Long idDespesa){
+        try {
+            return ResponseEntity.ok(alteraDespesaService.altera(despesaForm));
+        } catch (DespesaDuplicadaException ex) {
+            return ResponseEntity.badRequest().body(ex.getMensagem());
+        }
+        
     }
 
     @DeleteMapping(path = "/{idDespesa}")
