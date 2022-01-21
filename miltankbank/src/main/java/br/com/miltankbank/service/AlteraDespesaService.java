@@ -33,8 +33,8 @@ public class AlteraDespesaService {
 
     private void adicionaAcoes() {
         acoes.clear();
-        acoes.add(despesa);
         acoes.add(validacao);
+        acoes.add(despesa);
     }
 
 }

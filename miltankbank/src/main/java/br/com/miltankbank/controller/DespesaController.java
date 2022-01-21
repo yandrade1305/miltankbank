@@ -69,7 +69,7 @@ public class DespesaController {
     }
 
     @GetMapping(path = "/{idDespesa}")
-    public ResponseEntity<DespesaDTO> detalhaBeneficiario(@PathVariable Long idDespesa){
+    public ResponseEntity<DespesaDTO> detalhaDespesa(@PathVariable Long idDespesa){
         DespesaDTO despesa = detalhaDespesaService.obterPor(idDespesa);
         if (despesa.getIdDespesa() == null) {
             return ResponseEntity.notFound().build();
