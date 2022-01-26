@@ -17,6 +17,11 @@ public class AbstractExecutorCadastroDespesa implements AcaoCadastroDespesa{
     @Override
     public void executa(DespesaForm despesaForm) {
         Despesa despesa = new Despesa(despesaForm);
+        if (despesaForm.getCategoria() == null) {
+            despesa.setIdCategoria(8L);
+        } else {
+            despesa.setIdCategoria(despesaForm.getCategoria().getIdCategoria());
+        }
         despesaRepository.save(despesa);
         despesaForm.setIdDespesa(despesa.getIdDespesa());
     }

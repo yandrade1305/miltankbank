@@ -22,4 +22,10 @@ public class ListarReceitaService {
         return listaReceitaDTOs;
     }
 
+    public List<ListarReceitaDTO> listarReceitasPesquisadas(String descricaoReceita){
+        List<ListarReceitaDTO> listaReceitasPesquisadasDTOs = new ArrayList<>();
+        receita.findAllByDescricaoReceita(descricaoReceita).forEach(receita -> listaReceitasPesquisadasDTOs.add(new ListarReceitaDTO(receita)));
+        return listaReceitasPesquisadasDTOs;
+    }
+
 }

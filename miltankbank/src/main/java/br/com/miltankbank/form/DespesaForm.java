@@ -8,6 +8,7 @@ public class DespesaForm {
     private String descricaoDespesa;
     private BigDecimal valorDespesa;
     private LocalDate dataDespesa;
+    private CategoriaForm categoria;
 
     public Long getIdDespesa() {
         return this.idDespesa;
@@ -29,4 +30,7 @@ public class DespesaForm {
         this.idDespesa = idDespesa;
     }
 
+    public CategoriaForm getCategoria() {
+        return categoria;
+    }
 }

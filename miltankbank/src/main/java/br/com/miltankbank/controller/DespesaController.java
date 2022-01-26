@@ -3,6 +3,7 @@ package br.com.miltankbank.controller;
 import java.net.URI;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.miltankbank.exceptions.DespesaDuplicadaException;
@@ -24,18 +28,17 @@ import br.com.miltankbank.service.ExcluiDespesaService;
 import br.com.miltankbank.service.ListarDespesaService;
 
 @RestController
-@RequestMapping(path = "/despesas")
 public class DespesaController {
-    
+
     private final CadastroDespesaService cadastroDespesaService;
     private final AlteraDespesaService alteraDespesaService;
     private final ExcluiDespesaService excluiDespesaService;
     private final DetalhaDespesaService detalhaDespesaService;
     private final ListarDespesaService listarDespesaService;
 
-
     public DespesaController(CadastroDespesaService cadastroDespesaService, AlteraDespesaService alteraDespesaService,
-     ExcluiDespesaService excluiDespesaService, DetalhaDespesaService detalhaDespesaService, ListarDespesaService listarDespesaService) {
+            ExcluiDespesaService excluiDespesaService, DetalhaDespesaService detalhaDespesaService,
+            ListarDespesaService listarDespesaService) {
         this.cadastroDespesaService = cadastroDespesaService;
         this.alteraDespesaService = alteraDespesaService;
         this.excluiDespesaService = excluiDespesaService;
@@ -43,33 +46,33 @@ public class DespesaController {
         this.listarDespesaService = listarDespesaService;
     }
 
-    @PostMapping
-    public ResponseEntity<?> cadastrarDespesa(@RequestBody DespesaForm despesaForm){
+    @PostMapping(path = "/despesa")
+    public ResponseEntity<?> cadastrarDespesa(@RequestBody DespesaForm despesaForm) {
         try {
             return ResponseEntity.created(URI.create("")).body(cadastroDespesaService.cadastrar(despesaForm));
         } catch (DespesaDuplicadaException ex) {
             return ResponseEntity.badRequest().body(ex.getMensagem());
         }
-        
+
     }
 
-    @PutMapping(path = "/{idDespesa}")
-    public ResponseEntity<?> alterarDespesa(@RequestBody DespesaForm despesaForm, @PathVariable Long idDespesa){
+    @PutMapping(path = "/despesa/{idDespesa}")
+    public ResponseEntity<?> alterarDespesa(@RequestBody DespesaForm despesaForm, @PathVariable Long idDespesa) {
         try {
             return ResponseEntity.ok(alteraDespesaService.altera(despesaForm));
         } catch (DespesaDuplicadaException ex) {
             return ResponseEntity.badRequest().body(ex.getMensagem());
         }
-        
+
     }
 
-    @DeleteMapping(path = "/{idDespesa}")
-    public ResponseEntity<?> excluiDespesa(@PathVariable Long idDespesa){
+    @DeleteMapping(path = "/despesa/{idDespesa}")
+    public ResponseEntity<?> excluiDespesa(@PathVariable Long idDespesa) {
         return ResponseEntity.ok(excluiDespesaService.excluir(idDespesa));
     }
 
-    @GetMapping(path = "/{idDespesa}")
-    public ResponseEntity<DespesaDTO> detalhaDespesa(@PathVariable Long idDespesa){
+    @GetMapping(path = "/despesa/{idDespesa}")
+    public ResponseEntity<DespesaDTO> detalhaDespesa(@PathVariable Long idDespesa) {
         DespesaDTO despesa = detalhaDespesaService.obterPor(idDespesa);
         if (despesa.getIdDespesa() == null) {
             return ResponseEntity.notFound().build();
@@ -77,8 +80,13 @@ public class DespesaController {
         return ResponseEntity.ok(despesa);
     }
 
-    @GetMapping
-    public ResponseEntity<List<ListarDespesaDTO>> listarDespesas(){
+    @GetMapping(path = "/despesas")
+    public ResponseEntity<List<ListarDespesaDTO>> listarDespesas() {
         return ResponseEntity.ok(listarDespesaService.listarDespesas());
+    }
+
+    @GetMapping(path = "/despesa")
+    public ResponseEntity<List<ListarDespesaDTO>> listarDespesasPesquisadas(@RequestParam(name = "descricaoDespesa", required = false) String descricaoDespesa) {
+        return ResponseEntity.ok(listarDespesaService.listarDespesasPesquisadas(descricaoDespesa));
     }
 }

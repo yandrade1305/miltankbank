@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.miltankbank.exceptions.ReceitaDuplicadaException;
@@ -24,7 +25,6 @@ import br.com.miltankbank.service.ExcluiReceitaService;
 import br.com.miltankbank.service.ListarReceitaService;
 
 @RestController
-@RequestMapping(path = "/receitas")
 public class ReceitaController {
     
     private final CadastroReceitaService cadastroReceitaService;
@@ -43,7 +43,7 @@ public class ReceitaController {
         this.listarReceitaService = listarReceitaService;
     }
 
-    @PostMapping
+    @PostMapping(path = "/receita")
     public ResponseEntity<?> cadastrarReceita(@RequestBody ReceitaForm receitaForm){
         try {
             return ResponseEntity.created(URI.create("")).body(cadastroReceitaService.cadastrar(receitaForm));   
@@ -52,7 +52,7 @@ public class ReceitaController {
         }
     }
 
-    @PutMapping(path = "/{idReceita}")
+    @PutMapping(path = "/receita/{idReceita}")
     public ResponseEntity<?> alterarReceita(@RequestBody ReceitaForm receitaForm, @PathVariable Long idReceita){
         try {
             return ResponseEntity.ok(alteraReceitaService.altera(receitaForm));    
@@ -62,12 +62,12 @@ public class ReceitaController {
         
     }
 
-    @DeleteMapping(path = "/{idReceita}")
+    @DeleteMapping(path = "/receita/{idReceita}")
     public ResponseEntity<?> excluiReceita(@PathVariable Long idReceita){
         return ResponseEntity.ok(excluiReceitaService.excluir(idReceita));
     }
 
-    @GetMapping(path = "/{idReceita}")
+    @GetMapping(path = "/receita/{idReceita}")
     public ResponseEntity<ReceitaDTO> detalhaReceita(@PathVariable Long idReceita){
         ReceitaDTO receita = detalhaReceitaService.obterPor(idReceita);
         if (receita.getIdReceita() == null) {
@@ -76,8 +76,13 @@ public class ReceitaController {
         return ResponseEntity.ok(receita);
     }
 
-    @GetMapping
+    @GetMapping(path = "/receitas")
     public ResponseEntity<List<ListarReceitaDTO>> listarReceitas(){
         return ResponseEntity.ok(listarReceitaService.listarReceitas());
+    }
+
+    @GetMapping(path = "/receita")
+    public ResponseEntity<List<ListarReceitaDTO>> listarReceitasPesquisadas(@RequestParam String descricaoReceita){
+        return ResponseEntity.ok(listarReceitaService.listarReceitasPesquisadas(descricaoReceita));
     }
 }

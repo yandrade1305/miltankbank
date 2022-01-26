@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Optional;
 
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
@@ -49,11 +50,13 @@ public class DespesaRepositoryTest {
         despesa.setDescricaoDespesa("Hyper Potion");
         despesa.setValorDespesa(BigDecimal.valueOf(1200L));
         despesa.setDataDespesa(LocalDate.of(2021, 12, 25));
+        despesa.getCategoria().setIdCategoria(2L);
         Despesa despesaAlteradaSalva = despesaRepository.save(despesa);
         assertNotNull(despesaAlteradaSalva);
         assertEquals("Hyper Potion", despesaAlteradaSalva.getDescricaoDespesa());
         assertEquals(BigDecimal.valueOf(1200L), despesaAlteradaSalva.getValorDespesa());
         assertEquals(LocalDate.of(2021, 12, 25), despesaAlteradaSalva.getDataDespesa());
+        assertEquals(2L, despesaAlteradaSalva.getCategoria().getIdCategoria());
     }
 
     @Test
@@ -70,7 +73,7 @@ public class DespesaRepositoryTest {
     @Test
     @BeforeAll
     public void iniciar(){
-        despesa = new Despesa("Rare Candy", BigDecimal.valueOf(2400L), LocalDate.of(2022, 04, 26));
+        despesa = new Despesa("Rare Candy", BigDecimal.valueOf(2400L), LocalDate.of(2022, 04, 26), 6L);
     }
     
     @Test

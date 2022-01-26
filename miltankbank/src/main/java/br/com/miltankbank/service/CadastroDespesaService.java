@@ -3,6 +3,8 @@ package br.com.miltankbank.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import br.com.miltankbank.form.DespesaForm;
@@ -26,6 +28,7 @@ public class CadastroDespesaService {
         adicionaAcoes();
     }
 
+    @Transactional
     public DespesaDTO cadastrar(DespesaForm despesaForm) {
         acoes.forEach(acao -> acao.executa(despesaForm));
         return detalhaDespesaService.obterPor(despesaForm.getIdDespesa());

@@ -22,4 +22,9 @@ public class ListarDespesaService {
         return listaDespesaDTOs;
     }
 
+    public List<ListarDespesaDTO> listarDespesasPesquisadas(String descricaoDespesa){
+        List<ListarDespesaDTO> listaDespesaPesquisadasDTOs = new ArrayList<>();
+        despesa.findAllByDescricaoDespesaPesquisada(descricaoDespesa).forEach(despesa -> listaDespesaPesquisadasDTOs.add(new ListarDespesaDTO(despesa)));
+        return listaDespesaPesquisadasDTOs;
+    }
 }

@@ -18,10 +18,10 @@ public class AbstractExecutorValidacaoCadastroDespesa implements AcaoCadastroDes
     }
 
     @Override
-    public void executa(DespesaForm form) {
-        Optional<Despesa> optDespesa = despesaRepository.findByDescricaoDespesa(form.getDescricaoDespesa());
+    public void executa(DespesaForm despesaForm) {
+        Optional<Despesa> optDespesa = despesaRepository.findByDescricaoDespesa(despesaForm.getDescricaoDespesa());
         if (optDespesa.isPresent()) {
-            if (form.getDataDespesa().getMonth().equals(optDespesa.get().getDataDespesa().getMonth())) {
+            if (despesaForm.getDataDespesa().getMonth().equals(optDespesa.get().getDataDespesa().getMonth())) {
                 throw new DespesaDuplicadaException("Não pode ter duas despesas com a mesma descrição no mesmo mês");
             }
             LocalDate dataAtual = LocalDate.now();

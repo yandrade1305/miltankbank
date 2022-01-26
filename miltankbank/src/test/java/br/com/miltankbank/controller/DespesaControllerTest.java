@@ -25,31 +25,51 @@ public class DespesaControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private static final String cadastro = "{"
+    public static final String cadastroSemCategoria = "{"
         + "\"descricaoDespesa\": \"Hyper Potion\","
         + "\"valorDespesa\": \"1200\","
         + "\"dataDespesa\": \"2022-12-26\""
     + "}";
 
+    private static final String cadastro = "{"
+        + "\"descricaoDespesa\": \"Max Potion\","
+        + "\"valorDespesa\": \"1200\","
+        + "\"dataDespesa\": \"2022-12-26\","
+        + "\"categoriaDTO\":{"
+            + "\"idCategoria\":\"2\","
+            + "\"descricaoCategoria\":\"Saúde\""
+            +"}"
+        +"}";
+          
+
     private static final String altera = "{"
         + "\"idDespesa\": \"1\","
         + "\"descricaoDespesa\": \"Rare Candy\","
         + "\"valorDespesa\": \"1200\","
-        + "\"dataDespesa\": \"2021-12-25\""
-    + "}";
+        + "\"dataDespesa\": \"2021-12-25\","
+        + "\"categoriaDTO\":{"
+            + "\"idCategoria\":\"6\","
+            + "\"descricaoCategoria\":\"Lazer\""
+            +"}"
+    +"}";
 
     private static final String detalha = "{"
         + "\"idDespesa\": \"1\","
         + "\"descricaoDespesa\": \"Rare Candy\","
         + "\"valorDespesa\": \"1200\","
         + "\"dataDespesa\": \"2021-12-25\""
-    + "}";
+        + "\"categoriaDTO\":{"
+            + "\"idCategoria\":\"6\","
+            + "\"descricaoCategoria\":\"Lazer\""
+        +"}"
+    +"}";
 
     private static final String lista = "["
             + "{"
                 + "\"descricaoDespesa\": \"Hyper Potion\","
                 + "\"valorDespesa\": \"1200\","
                 + "\"dataDespesa\": \"2022-12-26\""
+                + "\"descricaoCategoria\":\"Lazer\""
             + "}"
         + "]";
 
@@ -80,6 +100,17 @@ public class DespesaControllerTest {
     @Test
     @Rollback(false)
     @Order(3)
+    public void deveCadastrarDespesaSemCategoria() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+        .post("/despesas")
+        .content(cadastroSemCategoria)
+        .contentType(MediaType.APPLICATION_JSON))
+    .andExpect(MockMvcResultMatchers.status().isCreated());
+    }
+
+    @Test
+    @Rollback(false)
+    @Order(4)
     public void deveAlterarDespesa() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders
             .put("/despesas/1")
@@ -90,7 +121,7 @@ public class DespesaControllerTest {
 
     @Test
     @Rollback(false)
-    @Order(4)
+    @Order(5)
     public void naoDeveAlterarDespesa() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders
             .put("/despesas/1")
@@ -101,7 +132,7 @@ public class DespesaControllerTest {
 
     @Test
     @Rollback(false)
-    @Order(5)
+    @Order(6)
     public void deveDetalharDespesas() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders
             .get("/despesas/1")
@@ -112,7 +143,7 @@ public class DespesaControllerTest {
 
     @Test
     @Rollback(false)
-    @Order(6)
+    @Order(7)
     public void deveListarDespesas() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders
             .get("/despesas/")
@@ -123,7 +154,7 @@ public class DespesaControllerTest {
 
     @Test
     @Rollback(false)
-    @Order(6)
+    @Order(8)
     public void deveExcluirDespesas() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders
             .delete("/despesas/1")

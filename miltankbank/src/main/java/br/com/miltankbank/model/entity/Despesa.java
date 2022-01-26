@@ -5,13 +5,17 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import br.com.miltankbank.form.DespesaForm;
+import br.com.miltankbank.model.dto.CategoriaDTO;
 
 @Entity
 @Table(name = "DESPESA", schema = "MILTANKBANK")
@@ -27,13 +31,19 @@ public class Despesa {
     private BigDecimal valorDespesa;
     @Column(name = "DATA_DESPESA")
     private LocalDate dataDespesa;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_CATEGORIA", insertable=false, updatable=false)
+    private Categoria categoria;
+    @Column(name = "ID_CATEGORIA")
+    private Long idCategoria;
 
     public Despesa () {}
 
-    public Despesa (String descricaoDespesa, BigDecimal valorDespesa, LocalDate dataDespesa) {
+    public Despesa (String descricaoDespesa, BigDecimal valorDespesa, LocalDate dataDespesa, Long idCategoria) {
         this.descricaoDespesa = descricaoDespesa;
         this.valorDespesa = valorDespesa;
         this.dataDespesa = dataDespesa;
+        this.idCategoria = idCategoria;
     }
 
     public Despesa (DespesaForm despesa){
@@ -42,6 +52,7 @@ public class Despesa {
         this.valorDespesa = despesa.getValorDespesa();
         this.dataDespesa = despesa.getDataDespesa();
     }
+
 
     public Long getIdDespesa() {
         return this.idDespesa;
@@ -59,6 +70,14 @@ public class Despesa {
         return this.dataDespesa;
     }
 
+    public Long getIdCategoria() {
+        return idCategoria;
+    }
+
+    public Categoria getCategoria() {
+        return this.categoria;
+    }
+
     public void setDescricaoDespesa(String descricaoDespesa) {
         this.descricaoDespesa = descricaoDespesa;
     }
@@ -70,5 +89,12 @@ public class Despesa {
     public void setDataDespesa(LocalDate dataDespesa) {
         this.dataDespesa = dataDespesa;
     }
-    
+
+    public void setIdCategoria(Long idCategoria) {
+        this.idCategoria = idCategoria;
+    }
+
+    public CategoriaDTO getCategoriaDTO() {
+        return null;
+    }
 }
