@@ -73,6 +73,15 @@ public class DespesaControllerTest {
             + "}"
         + "]";
 
+    private static final String pesquisa = "["
+    + "{"
+        + "\"descricaoDespesa\": \"Rare Candy\","
+        + "\"valorDespesa\": \"1200\","
+        + "\"dataDespesa\": \"2022-12-26\""
+        + "\"descricaoCategoria\":\"Lazer\""
+    + "}"
++ "]";
+
     private static final String exclui = "1";
 
     @Test
@@ -80,7 +89,7 @@ public class DespesaControllerTest {
     @Order(1)
     public void deveCadastrarDespesa() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders
-            .post("/despesas")
+            .post("/despesa")
             .content(cadastro)
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isCreated());
@@ -91,7 +100,7 @@ public class DespesaControllerTest {
     @Order(2)
     public void naoDeveCadastrarDespesa() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders
-            .post("/despesas")
+            .post("/despesa")
             .content(cadastro)
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isBadRequest());
@@ -102,7 +111,7 @@ public class DespesaControllerTest {
     @Order(3)
     public void deveCadastrarDespesaSemCategoria() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-        .post("/despesas")
+        .post("/despesa")
         .content(cadastroSemCategoria)
         .contentType(MediaType.APPLICATION_JSON))
     .andExpect(MockMvcResultMatchers.status().isCreated());
@@ -113,7 +122,7 @@ public class DespesaControllerTest {
     @Order(4)
     public void deveAlterarDespesa() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders
-            .put("/despesas/1")
+            .put("/despesa/1")
             .content(altera)
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isOk());
@@ -124,7 +133,7 @@ public class DespesaControllerTest {
     @Order(5)
     public void naoDeveAlterarDespesa() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders
-            .put("/despesas/1")
+            .put("/despesa/1")
             .content(altera)
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isBadRequest());
@@ -135,7 +144,7 @@ public class DespesaControllerTest {
     @Order(6)
     public void deveDetalharDespesas() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders
-            .get("/despesas/1")
+            .get("/despesa/1")
             .content(detalha)
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isOk());
@@ -155,11 +164,23 @@ public class DespesaControllerTest {
     @Test
     @Rollback(false)
     @Order(8)
+    public void deveListarDespesaPesquisada() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders
+        .get("/despesa?Rare Candy")
+        .content(pesquisa)
+        .contentType(MediaType.APPLICATION_JSON))
+    .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    @Rollback(false)
+    @Order(9)
     public void deveExcluirDespesas() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders
-            .delete("/despesas/1")
+            .delete("/despesa/1")
             .content(exclui)
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isOk());
     }    
+
 }

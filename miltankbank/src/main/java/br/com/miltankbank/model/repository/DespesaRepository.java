@@ -12,6 +12,7 @@ import br.com.miltankbank.model.entity.Despesa;
 public interface DespesaRepository extends JpaRepository<Despesa, Long>{
 
     Optional<Despesa> findByDescricaoDespesa(String descricaoDespesa);
-    @Query(value = "select d from miltankbank.Despesa d where descricao_despesa =:descricaoDespesa", nativeQuery = true)
+    @Query("select d from Despesa d where d.descricaoDespesa = :descricaoDespesa")
     List<Despesa> findAllByDescricaoDespesaPesquisada(@Param("descricaoDespesa") String descricaoDespesa);
+    // List<Despesa> findByMesEAno(Long ano, Long mes);
 }

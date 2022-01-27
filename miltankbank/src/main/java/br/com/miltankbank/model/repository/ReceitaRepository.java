@@ -12,4 +12,5 @@ public interface ReceitaRepository extends JpaRepository<Receita, Long>{
     Optional<Receita> findByDescricaoReceita(String descricaoReceita);
     @Query("select r from Receita r where r.descricaoReceita = :descricaoReceita")
     List<Receita> findAllByDescricaoReceita(String descricaoReceita);
+    // List<Receita> findByMesEAno(Long ano, Long mes);
 }
