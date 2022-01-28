@@ -80,8 +80,13 @@ public class ReceitaController {
         return ResponseEntity.ok(listarReceitaService.listarReceitas());
     }
 
-    @GetMapping(path = "/receita")
-    public ResponseEntity<List<ListarReceitaDTO>> listarReceitasPesquisadas(@RequestParam String descricaoReceita){
+    @GetMapping(value = "/receitas", params = "descricaoReceita")
+    public ResponseEntity<List<ListarReceitaDTO>> listarReceitasPesquisadas(@RequestParam(name = "descricaoReceita", required = false) String descricaoReceita){
         return ResponseEntity.ok(listarReceitaService.listarReceitasPesquisadas(descricaoReceita));
+    }
+
+    @GetMapping(path = "/receitas/{ano}/{mes}")
+    public ResponseEntity<List<ListarReceitaDTO>> listarDespesasPorMes(@PathVariable Integer ano, @PathVariable Integer mes) {
+        return ResponseEntity.ok(listarReceitaService.listarReceitasPorMes(ano, mes));
     }
 }

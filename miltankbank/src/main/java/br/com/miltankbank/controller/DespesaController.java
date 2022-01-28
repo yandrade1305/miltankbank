@@ -76,13 +76,18 @@ public class DespesaController {
         return ResponseEntity.ok(despesa);
     }
 
-    @GetMapping(path = "/despesas")
+    @GetMapping(value = "/despesas")
     public ResponseEntity<List<ListarDespesaDTO>> listarDespesas() {
         return ResponseEntity.ok(listarDespesaService.listarDespesas());
     }
 
-    @GetMapping(path = "/despesa")
+    @GetMapping(value = "/despesas", params = "descricaoDespesa")
     public ResponseEntity<List<ListarDespesaDTO>> listarDespesasPesquisadas(@RequestParam(name = "descricaoDespesa", required = false) String descricaoDespesa) {
         return ResponseEntity.ok(listarDespesaService.listarDespesasPesquisadas(descricaoDespesa));
+    }
+
+    @GetMapping(path = "/despesas/{ano}/{mes}")
+    public ResponseEntity<List<ListarDespesaDTO>> listarDespesasPorMes(@PathVariable Integer ano, @PathVariable Integer mes) {
+        return ResponseEntity.ok(listarDespesaService.listarDespesasPorMes(ano, mes));
     }
 }

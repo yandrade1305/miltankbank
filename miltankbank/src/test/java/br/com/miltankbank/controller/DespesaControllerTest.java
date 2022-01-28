@@ -75,7 +75,7 @@ public class DespesaControllerTest {
 
     private static final String pesquisa = "["
     + "{"
-        + "\"descricaoDespesa\": \"Rare Candy\","
+        + "\"descricaoDespesa\": \"Hyper Potion\","
         + "\"valorDespesa\": \"1200\","
         + "\"dataDespesa\": \"2022-12-26\""
         + "\"descricaoCategoria\":\"Lazer\""
@@ -166,7 +166,7 @@ public class DespesaControllerTest {
     @Order(8)
     public void deveListarDespesaPesquisada() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders
-        .get("/despesa?Rare Candy")
+        .get("/despesas/?descricaoDespesa=Hyper Potion")
         .content(pesquisa)
         .contentType(MediaType.APPLICATION_JSON))
     .andExpect(MockMvcResultMatchers.status().isOk());

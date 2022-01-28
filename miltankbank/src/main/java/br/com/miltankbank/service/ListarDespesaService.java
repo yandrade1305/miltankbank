@@ -27,4 +27,12 @@ public class ListarDespesaService {
         despesa.findAllByDescricaoDespesaPesquisada(descricaoDespesa).forEach(despesa -> listaDespesaPesquisadasDTOs.add(new ListarDespesaDTO(despesa)));
         return listaDespesaPesquisadasDTOs;
     }
+
+    public  List<ListarDespesaDTO> listarDespesasPorMes(Integer ano, Integer mes) {
+        List<ListarDespesaDTO> listaDespesaPorMes = new ArrayList<>();
+        despesa.findAllByMes(ano,mes).forEach(despesa -> listaDespesaPorMes.add(new ListarDespesaDTO(despesa)));
+        return listaDespesaPorMes;
+    }
+
+
 }

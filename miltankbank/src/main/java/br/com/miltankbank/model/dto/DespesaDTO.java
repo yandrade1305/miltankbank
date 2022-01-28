@@ -42,4 +42,8 @@ public class DespesaDTO {
     public LocalDate getDataDespesa() {
         return this.dataDespesa;
     }
+
+    public CategoriaDTO getCategoriaDTO() {
+        return categoriaDTO;
+    }
 }

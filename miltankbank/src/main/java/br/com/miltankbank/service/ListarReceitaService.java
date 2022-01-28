@@ -28,4 +28,11 @@ public class ListarReceitaService {
         return listaReceitasPesquisadasDTOs;
     }
 
+    public List<ListarReceitaDTO> listarReceitasPorMes(Integer ano, Integer mes){
+        List<ListarReceitaDTO> listaReceitasPesquisadasDTOs = new ArrayList<>();
+        receita.findAllByMes(ano, mes).forEach(receita -> listaReceitasPesquisadasDTOs.add(new ListarReceitaDTO(receita)));
+        return listaReceitasPesquisadasDTOs;
+    }
+
+
 }
