@@ -30,14 +30,14 @@ public class ReceitaControllerTest {
 
     private static final String altera = "{"
         + "\"idReceita\": \"1\","
-        + "\"descricaoReceita\": \"Ganhei da campeão Steven Stone\","
+        + "\"descricaoReceita\": \"Ganhei do campeão Steven Stone\","
         + "\"valorReceita\": \"11600\","
         + "\"dataReceita\": \"2021-12-25\""
     + "}";
 
     private static final String detalha = "{"
         + "\"idReceita\": \"1\","
-        + "\"descricaoReceita\": \"Ganhei da campeão Steven Stone\","
+        + "\"descricaoReceita\": \"Ganhei do campeão Steven Stone\","
         + "\"valorReceita\": \"11600\","
         + "\"dataReceita\": \"2021-12-25\""
     + "}";
@@ -50,6 +50,20 @@ public class ReceitaControllerTest {
         + "}"
     + "]";
 
+    private static final String pesquisa = "{"
+        + "\"idReceita\": \"1\","
+        + "\"descricaoReceita\": \"Ganhei do campeão Steven Stone\","
+        + "\"valorReceita\": \"11600\","
+        + "\"dataReceita\": \"2021-12-25\""
+    + "}";
+
+    private static final String pesquisaPorMes = "{"
+    + "\"idReceita\": \"1\","
+    + "\"descricaoReceita\": \"Ganhei do campeão Steven Stone\","
+    + "\"valorReceita\": \"11600\","
+    + "\"dataReceita\": \"2021-12-25\""
++ "}";
+
     private static final String exclui = "1";
 
     @Test
@@ -57,7 +71,7 @@ public class ReceitaControllerTest {
     @Order(1)
     public void deveCadastrarReceita() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders
-            .post("/receitas")
+            .post("/receita")
             .content(cadastro)
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isCreated());
@@ -69,7 +83,7 @@ public class ReceitaControllerTest {
     @Order(2)
     public void naoDeveCadastrarReceita() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders
-            .post("/receitas")
+            .post("/receita")
             .content(cadastro)
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isBadRequest());
@@ -80,7 +94,7 @@ public class ReceitaControllerTest {
     @Order(3)
     public void deveAlterarReceita() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders
-            .put("/receitas/1")
+            .put("/receita/1")
             .content(altera)
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isOk());
@@ -91,7 +105,7 @@ public class ReceitaControllerTest {
     @Order(4)
     public void naoDeveAlterarReceita() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders
-            .put("/receitas/1")
+            .put("/receita/1")
             .content(altera)
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isBadRequest());
@@ -102,7 +116,7 @@ public class ReceitaControllerTest {
     @Order(5)
     public void deveDetalharReceitas() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders
-            .get("/receitas/1")
+            .get("/receita/1")
             .content(detalha)
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isOk());
@@ -121,10 +135,32 @@ public class ReceitaControllerTest {
 
     @Test
     @Rollback(false)
-    @Order(6)
+    @Order(7)
+    public void deveListarReceitaPesquisada() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders
+        .get("/receitas/?descricaoReceita=Ganhei da campeão Steven Stone")
+        .content(pesquisa)
+        .contentType(MediaType.APPLICATION_JSON))
+    .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    @Rollback(false)
+    @Order(8)
+    public void deveListarReceitaPesquisadaPorMes() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders
+        .get("/receitas/2021/12")
+        .content(pesquisaPorMes)
+        .contentType(MediaType.APPLICATION_JSON))
+    .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    @Rollback(false)
+    @Order(9)
     public void deveExcluirReceitas() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders
-            .delete("/receitas/1")
+            .delete("/receita/1")
             .content(exclui)
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isOk());

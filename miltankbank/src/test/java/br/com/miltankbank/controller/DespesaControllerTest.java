@@ -82,6 +82,15 @@ public class DespesaControllerTest {
     + "}"
 + "]";
 
+private static final String pesquisaPorMes = "["
++ "{"
+    + "\"descricaoDespesa\": \"Hyper Potion\","
+    + "\"valorDespesa\": \"1200\","
+    + "\"dataDespesa\": \"2022-12-26\""
+    + "\"descricaoCategoria\":\"Lazer\""
++ "}"
++ "]";
+
     private static final String exclui = "1";
 
     @Test
@@ -175,6 +184,17 @@ public class DespesaControllerTest {
     @Test
     @Rollback(false)
     @Order(9)
+    public void deveListarDespesaPesquisadaPorMes() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders
+        .get("/despesas/2022/12")
+        .content(pesquisaPorMes)
+        .contentType(MediaType.APPLICATION_JSON))
+    .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    @Rollback(false)
+    @Order(10)
     public void deveExcluirDespesas() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders
             .delete("/despesa/1")

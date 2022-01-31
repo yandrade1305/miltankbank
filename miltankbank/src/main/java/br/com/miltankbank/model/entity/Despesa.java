@@ -15,7 +15,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import br.com.miltankbank.form.DespesaForm;
-import br.com.miltankbank.model.dto.CategoriaDTO;
 
 @Entity
 @Table(name = "DESPESA", schema = "MILTANKBANK")
@@ -92,9 +91,5 @@ public class Despesa {
 
     public void setIdCategoria(Long idCategoria) {
         this.idCategoria = idCategoria;
-    }
-
-    public CategoriaDTO getCategoriaDTO() {
-        return null;
     }
 }
