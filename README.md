@@ -46,26 +46,29 @@ O resumo do mês contêm as seguintes informações:
 
 
 
-### Receita [/receitas]
-* [Cadastrar Receita](#cadastrar-receita)
-* [Listar Receita](#listar-receita)
-* [Detalhar Receita](#detalhar-receita)
-* [Atualizar Receita](#atualizar-receita)
-* [Excluir Receita](#excluir-receita)
-* [Busca de Receita pela Descrição](#buscar-receita-por-descrição)
-* [Listar Receita por Mês](#listar-receita-por-mês)
+### Receita
+* [/receitas]
+  * [Cadastrar Receita](#cadastrar-receita)
+  * [Listar Receita](#listar-receita)
+  * [Detalhar Receita](#detalhar-receita)
+  * [Atualizar Receita](#atualizar-receita)
+  * [Excluir Receita](#excluir-receita)
+  * [Busca de Receita pela Descrição](#buscar-receita-por-descrição)
+  * [Listar Receita por Mês](#listar-receita-por-mês)
 
-### Despesa [/despesas]
-* [Cadastrar Despesa](#cadastrar-despesa)
-* [Listar Despesa](#listar-despesa)
-* [Detalhar Despesa](#detalhar-despesa)
-* [Atualizar Despesa](#atualizar-despesa)
-* [Excluir Despesa](#excluir-despesa)
-* [Busca de Despesa pela Descrição](#buscar-despesa-por-descrição)
-* [Listar Despesa por Mês](#listar-despesa-por-mês)
+### Despesa
+* [/despesas]
+  * [Cadastrar Despesa](#cadastrar-despesa)
+  * [Listar Despesa](#listar-despesa)
+  * [Detalhar Despesa](#detalhar-despesa)
+  * [Atualizar Despesa](#atualizar-despesa)
+  * [Excluir Despesa](#excluir-despesa)
+  * [Busca de Despesa pela Descrição](#buscar-despesa-por-descrição)
+  * [Listar Despesa por Mês](#listar-despesa-por-mês)
 
-### Resumo [/resumo]
-* [Detalhar Resumo do Mês](#detalhar-resumo-por-mês)
+### Resumo
+* [/resumo]
+  * [Detalhar Resumo do Mês](#detalhar-resumo-por-mês)
 
 ## Métodos
 &emsp;&emsp; As requisições para a API devem seguir os padrões:
@@ -373,4 +376,4 @@ O resumo do mês contêm as seguintes informações:
 ### Conclusão
 
 Quando recebi o e-mail da Alura falando que iriam lançar uma segunda edição do desafio Back-end eu fiquei com receio de participar pois estava recentemente entrando no mundo
-do desenvolvimento Web... Porém decidi arriscar e dizer "sim". Com planejamento e muitas horas de estudo e desenvolvendo consegui chegar no resultado satisfatório tão esperado, o começo foi tranquilo e com o dercorrer das semans o nível foi subindo. Mas consegui chegar do outro lado, o meu mais sincero obrigado a toda equipe do Alura e a dois profissionais que admiro que são eles: <a href="https://www.linkedin.com/in/ivan-santos-37289436/">Ivan Santos</a> e Welder
+do desenvolvimento Web... Porém decidi arriscar e dizer "sim". Com planejamento e muitas horas de estudo e desenvolvendo consegui chegar no resultado satisfatório tão esperado, o começo foi tranquilo e com o dercorrer das semans o nível foi subindo. Mas consegui chegar do outro lado, o meu mais sincero obrigado a toda equipe do Alura e a dois profissionais que admiro que são eles: <a href="https://www.linkedin.com/in/ivan-santos-37289436/">Ivan Santos</a> e Welder Pinheiro Luz (E-mail: <a href="wweellddeerr@gmail.com">wweellddeerr@gmail.com</a>)
