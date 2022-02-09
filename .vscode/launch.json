@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch SecurityConfig",
+            "request": "launch",
+            "mainClass": "br.com.miltankbank.config.security.SecurityConfig",
+            "projectName": "Miltankbank"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-MiltankbankApplication<Miltankbank>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
