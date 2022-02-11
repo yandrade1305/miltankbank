@@ -1,6 +1,7 @@
 package br.com.miltankbank.controller;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -15,6 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import br.com.miltankbank.model.dto.TokenDTO;
+import br.com.miltankbank.util.AutenticadorTest;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestInstance(Lifecycle.PER_CLASS)
@@ -22,6 +26,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 public class ReceitaControllerTest {
     @Autowired
     private MockMvc mockMvc;
+
+    private TokenDTO token;
+
     private static final String cadastro = "{"
         + "\"descricaoReceita\": \"Ganhei da campeã Cynthia\","
         + "\"valorReceita\": \"13200\","
@@ -66,13 +73,19 @@ public class ReceitaControllerTest {
 
     private static final String exclui = "1";
 
+    @BeforeAll
+    public void setup() throws Exception{
+        token = new AutenticadorTest().autentica(mockMvc);
+    }
+
     @Test
     @Rollback(false)
     @Order(1)
     public void deveCadastrarReceita() throws Exception{
-        mockMvc.perform(MockMvcRequestBuilders
+         mockMvc.perform(MockMvcRequestBuilders
             .post("/receita")
             .content(cadastro)
+            .header("Authorization", "Bearer " + token.getToken())
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isCreated());
 
@@ -85,6 +98,7 @@ public class ReceitaControllerTest {
         mockMvc.perform(MockMvcRequestBuilders
             .post("/receita")
             .content(cadastro)
+            .header("Authorization", "Bearer " + token.getToken())
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
@@ -96,6 +110,7 @@ public class ReceitaControllerTest {
         mockMvc.perform(MockMvcRequestBuilders
             .put("/receita/1")
             .content(altera)
+            .header("Authorization", "Bearer " + token.getToken())
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isOk());
     }
@@ -107,6 +122,7 @@ public class ReceitaControllerTest {
         mockMvc.perform(MockMvcRequestBuilders
             .put("/receita/1")
             .content(altera)
+            .header("Authorization", "Bearer " + token.getToken())
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
@@ -118,6 +134,7 @@ public class ReceitaControllerTest {
         mockMvc.perform(MockMvcRequestBuilders
             .get("/receita/1")
             .content(detalha)
+            .header("Authorization", "Bearer " + token.getToken())
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isOk());
     }
@@ -129,6 +146,7 @@ public class ReceitaControllerTest {
         mockMvc.perform(MockMvcRequestBuilders
             .get("/receitas/")
             .content(lista)
+            .header("Authorization", "Bearer " + token.getToken())
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isOk());
     }
@@ -140,6 +158,7 @@ public class ReceitaControllerTest {
         mockMvc.perform(MockMvcRequestBuilders
         .get("/receitas/?descricaoReceita=Ganhei da campeão Steven Stone")
         .content(pesquisa)
+        .header("Authorization", "Bearer " + token.getToken())
         .contentType(MediaType.APPLICATION_JSON))
     .andExpect(MockMvcResultMatchers.status().isOk());
     }
@@ -151,6 +170,7 @@ public class ReceitaControllerTest {
         mockMvc.perform(MockMvcRequestBuilders
         .get("/receitas/2021/12")
         .content(pesquisaPorMes)
+        .header("Authorization", "Bearer " + token.getToken())
         .contentType(MediaType.APPLICATION_JSON))
     .andExpect(MockMvcResultMatchers.status().isOk());
     }
@@ -162,6 +182,7 @@ public class ReceitaControllerTest {
         mockMvc.perform(MockMvcRequestBuilders
             .delete("/receita/1")
             .content(exclui)
+            .header("Authorization", "Bearer " + token.getToken())
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isOk());
     }    

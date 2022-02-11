@@ -17,4 +17,6 @@ public class TokenDTO {
         this.token = token;
         this.tipo = tipo;
     }
+
+    public TokenDTO () {}
 }

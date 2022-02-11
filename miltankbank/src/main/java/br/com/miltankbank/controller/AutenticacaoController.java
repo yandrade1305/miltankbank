@@ -2,7 +2,6 @@ package br.com.miltankbank.controller;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,20 +12,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.miltankbank.form.LoginForm;
 import br.com.miltankbank.model.dto.TokenDTO;
 import br.com.miltankbank.service.TokenServices;
-import br.com.miltankbank.form.LoginForm;
 
 @RestController
 @RequestMapping("/auth")
 public class AutenticacaoController {
-    @Autowired
-    private AuthenticationManager authManager;
+
+    private final AuthenticationManager authManager;
+    private final TokenServices tokenServices;
     
-    @Autowired
-    private TokenServices tokenServices;
-    
-    
+    public AutenticacaoController(AuthenticationManager authManager, TokenServices tokenServices) {
+        this.authManager = authManager;
+        this.tokenServices = tokenServices;
+    }
+
+
     @PostMapping
     public ResponseEntity<TokenDTO> autenticar(@RequestBody @Valid LoginForm form){
         UsernamePasswordAuthenticationToken dadosLogin = form.converter();

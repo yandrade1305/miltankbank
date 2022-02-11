@@ -1,5 +1,6 @@
 package br.com.miltankbank.controller;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import br.com.miltankbank.model.dto.TokenDTO;
+import br.com.miltankbank.util.AutenticadorTest;
+
 
 
 @SpringBootTest
@@ -24,6 +28,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 public class DespesaControllerTest {
     @Autowired
     private MockMvc mockMvc;
+
+    private TokenDTO token;
 
     public static final String cadastroSemCategoria = "{"
         + "\"descricaoDespesa\": \"Hyper Potion\","
@@ -93,6 +99,11 @@ private static final String pesquisaPorMes = "["
 
     private static final String exclui = "1";
 
+    @BeforeAll
+    public void setup() throws Exception{
+        token = new AutenticadorTest().autentica(mockMvc);
+    }
+
     @Test
     @Rollback(false)
     @Order(1)
@@ -100,6 +111,7 @@ private static final String pesquisaPorMes = "["
         mockMvc.perform(MockMvcRequestBuilders
             .post("/despesa")
             .content(cadastro)
+            .header("Authorization", "Bearer " + token.getToken())
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isCreated());
     }
@@ -111,6 +123,7 @@ private static final String pesquisaPorMes = "["
         mockMvc.perform(MockMvcRequestBuilders
             .post("/despesa")
             .content(cadastro)
+            .header("Authorization", "Bearer " + token.getToken())
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
@@ -122,6 +135,7 @@ private static final String pesquisaPorMes = "["
         mockMvc.perform(MockMvcRequestBuilders
         .post("/despesa")
         .content(cadastroSemCategoria)
+        .header("Authorization", "Bearer " + token.getToken())
         .contentType(MediaType.APPLICATION_JSON))
     .andExpect(MockMvcResultMatchers.status().isCreated());
     }
@@ -133,6 +147,7 @@ private static final String pesquisaPorMes = "["
         mockMvc.perform(MockMvcRequestBuilders
             .put("/despesa/1")
             .content(altera)
+            .header("Authorization", "Bearer " + token.getToken())
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isOk());
     }
@@ -144,6 +159,7 @@ private static final String pesquisaPorMes = "["
         mockMvc.perform(MockMvcRequestBuilders
             .put("/despesa/1")
             .content(altera)
+            .header("Authorization", "Bearer " + token.getToken())
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
@@ -155,6 +171,7 @@ private static final String pesquisaPorMes = "["
         mockMvc.perform(MockMvcRequestBuilders
             .get("/despesa/1")
             .content(detalha)
+            .header("Authorization", "Bearer " + token.getToken())
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isOk());
     }
@@ -166,6 +183,7 @@ private static final String pesquisaPorMes = "["
         mockMvc.perform(MockMvcRequestBuilders
             .get("/despesas/")
             .content(lista)
+            .header("Authorization", "Bearer " + token.getToken())
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isOk());
     }
@@ -177,6 +195,7 @@ private static final String pesquisaPorMes = "["
         mockMvc.perform(MockMvcRequestBuilders
         .get("/despesas/?descricaoDespesa=Hyper Potion")
         .content(pesquisa)
+        .header("Authorization", "Bearer " + token.getToken())
         .contentType(MediaType.APPLICATION_JSON))
     .andExpect(MockMvcResultMatchers.status().isOk());
     }
@@ -188,6 +207,7 @@ private static final String pesquisaPorMes = "["
         mockMvc.perform(MockMvcRequestBuilders
         .get("/despesas/2022/12")
         .content(pesquisaPorMes)
+        .header("Authorization", "Bearer " + token.getToken())
         .contentType(MediaType.APPLICATION_JSON))
     .andExpect(MockMvcResultMatchers.status().isOk());
     }
@@ -199,6 +219,7 @@ private static final String pesquisaPorMes = "["
         mockMvc.perform(MockMvcRequestBuilders
             .delete("/despesa/1")
             .content(exclui)
+            .header("Authorization", "Bearer " + token.getToken())
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isOk());
     }    
