@@ -23,8 +23,10 @@ public class ExecutorExcluiDespesa implements AcaoExcluiDespesa {
         Optional<Despesa> optDespesa = despesaRepository.findById(idDespesa);
         if (optDespesa.isPresent()) {
             despesaRepository.deleteById(idDespesa);
+        } else {
+            throw new DespesaExcluidaException("A despesa de id: "  + idDespesa + " já foi excluída anteriormente");
         }
-        throw new DespesaExcluidaException("A despesa de id: "  + idDespesa + " já foi excluída anteriormente");
+        
     }
 
 }

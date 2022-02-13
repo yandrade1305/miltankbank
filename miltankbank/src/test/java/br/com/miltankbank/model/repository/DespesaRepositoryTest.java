@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 
+import br.com.miltankbank.model.entity.Categoria;
 import br.com.miltankbank.model.entity.Despesa;
 
 
@@ -50,6 +51,7 @@ public class DespesaRepositoryTest {
         despesa.setDescricaoDespesa("Hyper Potion");
         despesa.setValorDespesa(BigDecimal.valueOf(1200L));
         despesa.setDataDespesa(LocalDate.of(2021, 12, 25));
+        despesa.setCategoria(new Categoria());
         despesa.getCategoria().setIdCategoria(2L);
         Despesa despesaAlteradaSalva = despesaRepository.save(despesa);
         assertNotNull(despesaAlteradaSalva);

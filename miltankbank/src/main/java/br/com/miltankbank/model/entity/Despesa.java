@@ -89,6 +89,10 @@ public class Despesa {
         this.dataDespesa = dataDespesa;
     }
 
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
     public void setIdCategoria(Long idCategoria) {
         this.idCategoria = idCategoria;
     }

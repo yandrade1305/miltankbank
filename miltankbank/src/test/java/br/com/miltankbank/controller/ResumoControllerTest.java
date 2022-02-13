@@ -1,5 +1,6 @@
 package br.com.miltankbank.controller;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,39 @@ public class ResumoControllerTest {
 
     private TokenDTO token;
 
-    public static final String valorReceitas = "{"
+    private static final String cadastroReceita = "{"
+        + "\"descricaoReceita\": \"Ganhei da campeã Cynthia\","
+        + "\"valorReceita\": \"13200\","
+        + "\"dataReceita\": \"2022-12-26\""
+    + "}";
+
+    public static final String cadastroDespesa ="{"
+    + "\"descricaoDespesa\": \"Max Potion\","
+    + "\"valorDespesa\": \"1200\","
+    + "\"dataDespesa\": \"2022-12-26\","
+    + "\"categoriaDTO\":{"
+        + "\"idCategoria\":\"2\","
+        + "\"descricaoCategoria\":\"Saúde\""
+        +"}"
+    +"}";
+
+    private static final String excluiReceita = "{"
+        + "\"descricaoReceita\": \"Ganhei da campeã Cynthia\","
+        + "\"valorReceita\": \"13200\","
+        + "\"dataReceita\": \"2022-12-26\""
+    + "}";
+
+    public static final String excluiDespesa ="{"
+    + "\"descricaoDespesa\": \"Max Potion\","
+    + "\"valorDespesa\": \"1200\","
+    + "\"dataDespesa\": \"2022-12-26\","
+    + "\"categoriaDTO\":{"
+        + "\"idCategoria\":\"2\","
+        + "\"descricaoCategoria\":\"Saúde\""
+        +"}"
+    +"}";
+
+    public static final String resumo = "{"
             + "\"valorTotalReceita\": \"0\","
             + "\"valorTotalDespesa\": \"0\","
             + "\"saldoFinal\": \"0\","
@@ -45,16 +78,41 @@ public class ResumoControllerTest {
     @BeforeAll
     public void setup() throws Exception{
         token = new AutenticadorTest().autentica(mockMvc);
+        mockMvc.perform(MockMvcRequestBuilders
+        .post("/receita")
+        .content(cadastroReceita)
+        .header("Authorization", "Bearer " + token.getToken())
+        .contentType(MediaType.APPLICATION_JSON));
+        mockMvc.perform(MockMvcRequestBuilders
+        .post("/despesa")
+        .content(cadastroDespesa)
+        .header("Authorization", "Bearer " + token.getToken())
+        .contentType(MediaType.APPLICATION_JSON));
     }
 
     @Test
     @Rollback(false)
     public void deveObterResumoNoMes() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                .get("/resumo/2022/05")
-                .content(valorReceitas)
+                .get("/resumo/2022/12")
+                .content(resumo)
                 .header("Authorization", "Bearer " + token.getToken())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @AfterAll
+    public void finalizar() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders
+            .delete("/receita/1")
+            .content(excluiReceita)
+            .header("Authorization", "Bearer " + token.getToken())
+            .contentType(MediaType.APPLICATION_JSON));
+            mockMvc.perform(MockMvcRequestBuilders
+            .delete("/despesa/1")
+            .content(excluiDespesa)
+            .header("Authorization", "Bearer " + token.getToken())
+            .contentType(MediaType.APPLICATION_JSON));
+
     }
 }

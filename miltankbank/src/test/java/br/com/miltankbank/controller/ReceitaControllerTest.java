@@ -156,7 +156,7 @@ public class ReceitaControllerTest {
     @Order(7)
     public void deveListarReceitaPesquisada() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders
-        .get("/receitas/?descricaoReceita=Ganhei da campeão Steven Stone")
+        .get("/receitas/?descricaoReceita=Ganhei do campeão Steven Stone")
         .content(pesquisa)
         .header("Authorization", "Bearer " + token.getToken())
         .contentType(MediaType.APPLICATION_JSON))

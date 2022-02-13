@@ -23,7 +23,8 @@ public class ExecutorExcluiReceita implements AcaoExcluiReceita {
         Optional<Receita> optReceita = receitaRepository.findById(idReceita);
         if (optReceita.isPresent()) {
             receitaRepository.deleteById(idReceita);    
+        } else {
+            throw new ReceitaExcluidaException("A receita de id: "  + idReceita + " já foi excluída anteriormente");
         }
-        throw new ReceitaExcluidaException("A receita de id: "  + idReceita + " já foi excluída anteriormente");
     }
 }
