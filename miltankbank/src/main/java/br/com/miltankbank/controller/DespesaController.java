@@ -1,7 +1,6 @@
 package br.com.miltankbank.controller;
 
 import java.net.URI;
-import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,10 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.miltankbank.exceptions.DespesaDuplicadaException;
+import br.com.miltankbank.exceptions.despesa.DespesaDuplicadaException;
+import br.com.miltankbank.exceptions.despesa.DespesaExcluidaException;
+import br.com.miltankbank.exceptions.despesa.DespesaNaoEncontradaException;
+import br.com.miltankbank.exceptions.despesa.ListaDespesasVaziaException;
+import br.com.miltankbank.exceptions.despesa.ListaDespesasVaziaPorDescricaoException;
+import br.com.miltankbank.exceptions.despesa.ListaDespesasVaziaPorMesException;
 import br.com.miltankbank.form.DespesaForm;
-import br.com.miltankbank.model.dto.DespesaDTO;
-import br.com.miltankbank.model.dto.ListarDespesaDTO;
 import br.com.miltankbank.service.AlteraDespesaService;
 import br.com.miltankbank.service.CadastroDespesaService;
 import br.com.miltankbank.service.DetalhaDespesaService;
@@ -64,30 +66,51 @@ public class DespesaController {
 
     @DeleteMapping(path = "/despesa/{idDespesa}")
     public ResponseEntity<?> excluiDespesa(@PathVariable Long idDespesa) {
-        return ResponseEntity.ok(excluiDespesaService.excluir(idDespesa));
+        try {
+            return ResponseEntity.ok(excluiDespesaService.excluir(idDespesa));
+        } catch (DespesaExcluidaException ex) {
+            return ResponseEntity.badRequest().body(ex.getMensagem());
+        }
+
     }
 
     @GetMapping(path = "/despesa/{idDespesa}")
-    public ResponseEntity<DespesaDTO> detalhaDespesa(@PathVariable Long idDespesa) {
-        DespesaDTO despesa = detalhaDespesaService.obterPor(idDespesa);
-        if (despesa.getIdDespesa() == null) {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<?> detalhaDespesa(@PathVariable Long idDespesa) {
+        try {
+            return ResponseEntity.ok(detalhaDespesaService.obterPor(idDespesa));
+        } catch (DespesaNaoEncontradaException ex) {
+            return ResponseEntity.badRequest().body(ex.getMensagem());
         }
-        return ResponseEntity.ok(despesa);
     }
 
     @GetMapping(value = "/despesas")
-    public ResponseEntity<List<ListarDespesaDTO>> listarDespesas() {
-        return ResponseEntity.ok(listarDespesaService.listarDespesas());
+    public ResponseEntity<?> listarDespesas() {
+        try {
+            return ResponseEntity.ok(listarDespesaService.listarDespesas());
+        } catch (ListaDespesasVaziaException ex) {
+            return ResponseEntity.badRequest().body(ex.getMensagem());
+        }
+
     }
 
     @GetMapping(value = "/despesas", params = "descricaoDespesa")
-    public ResponseEntity<List<ListarDespesaDTO>> listarDespesasPesquisadas(@RequestParam(name = "descricaoDespesa", required = false) String descricaoDespesa) {
-        return ResponseEntity.ok(listarDespesaService.listarDespesasPesquisadas(descricaoDespesa));
+    public ResponseEntity<?> listarDespesasPesquisadas(
+            @RequestParam(name = "descricaoDespesa", required = false) String descricaoDespesa) {
+        try {
+            return ResponseEntity.ok(listarDespesaService.listarDespesasPesquisadas(descricaoDespesa));
+        } catch (ListaDespesasVaziaPorDescricaoException ex) {
+            return ResponseEntity.badRequest().body(ex.getMensagem());
+        }
     }
 
     @GetMapping(path = "/despesas/{ano}/{mes}")
-    public ResponseEntity<List<ListarDespesaDTO>> listarDespesasPorMes(@PathVariable Integer ano, @PathVariable Integer mes) {
-        return ResponseEntity.ok(listarDespesaService.listarDespesasPorMes(ano, mes));
+    public ResponseEntity<?> listarDespesasPorMes(@PathVariable Integer ano,
+            @PathVariable Integer mes) {
+        try {
+            return ResponseEntity.ok(listarDespesaService.listarDespesasPorMes(ano, mes));
+        } catch (ListaDespesasVaziaPorMesException ex) {
+            return ResponseEntity.badRequest().body(ex.getMensagem());
+        }
+
     }
 }

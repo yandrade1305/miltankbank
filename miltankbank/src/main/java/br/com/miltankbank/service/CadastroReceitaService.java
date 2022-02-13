@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.com.miltankbank.exceptions.ReceitaDuplicadaException;
+import br.com.miltankbank.exceptions.receita.ReceitaDuplicadaException;
 import br.com.miltankbank.form.ReceitaForm;
 import br.com.miltankbank.model.dto.ReceitaDTO;
 import br.com.miltankbank.service.acao.AcaoCadastroReceita;

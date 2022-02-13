@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import br.com.miltankbank.exceptions.despesa.DespesaNaoEncontradaException;
 import br.com.miltankbank.model.dto.DespesaDTO;
 import br.com.miltankbank.model.entity.Categoria;
 import br.com.miltankbank.model.entity.Despesa;
@@ -29,6 +30,6 @@ public class DetalhaDespesaService {
             DespesaDTO despesaDTO = new DespesaDTO(optDespesa.get(),optCategoria.get());
             return despesaDTO;
         }
-        return new DespesaDTO();
+        throw new DespesaNaoEncontradaException("Despesa não foi encontrada para o id: " + idDespesa);
     }
 }

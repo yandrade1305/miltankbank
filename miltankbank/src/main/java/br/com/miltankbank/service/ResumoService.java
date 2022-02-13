@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.com.miltankbank.exceptions.resumo.ResumoNaoEncontradoException;
 import br.com.miltankbank.model.dto.ResumoDTO;
 import br.com.miltankbank.model.entity.Despesa;
 import br.com.miltankbank.model.entity.Receita;
@@ -24,6 +25,9 @@ public class ResumoService {
     public ResumoDTO obterPorMes(Integer ano, Integer mes) {
         List<Receita> listaReceitasPorMesEAno = receitaRepository.findAllByMes(ano, mes);
         List<Despesa> listaDespesaPorMesEAno = despesaRepository.findAllByMes(ano, mes);
+        if (listaDespesaPorMesEAno.isEmpty() && listaReceitasPorMesEAno.isEmpty()) {
+            throw new ResumoNaoEncontradoException("Não existe resumo para o mês " + mes + " do ano de " + ano);
+        }
         BigDecimal valorTotalDespesa = BigDecimal.ZERO;
         BigDecimal valorTotalReceita = BigDecimal.ZERO;
         BigDecimal saldoFinal = BigDecimal.ZERO;

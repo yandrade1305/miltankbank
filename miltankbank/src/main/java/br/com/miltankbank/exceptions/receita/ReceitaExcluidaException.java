@@ -1,9 +1,9 @@
-package br.com.miltankbank.exceptions;
+package br.com.miltankbank.exceptions.receita;
 
-public class DespesaDuplicadaException extends RuntimeException{
+public class ReceitaExcluidaException extends RuntimeException{
     private final String mensagem;
 
-    public DespesaDuplicadaException(String mensagem){
+    public ReceitaExcluidaException(String mensagem){
         super(mensagem);
         this.mensagem = mensagem;
     }
@@ -11,4 +11,5 @@ public class DespesaDuplicadaException extends RuntimeException{
     public String getMensagem() {
         return mensagem;
     }
+    
 }

@@ -2,7 +2,6 @@ package br.com.miltankbank.controller;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
@@ -50,7 +49,6 @@ public class ResumoControllerTest {
 
     @Test
     @Rollback(false)
-    @Order(1)
     public void deveObterResumoNoMes() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/resumo/2022/05")

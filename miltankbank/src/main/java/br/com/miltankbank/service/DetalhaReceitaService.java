@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import br.com.miltankbank.exceptions.receita.ReceitaNaoEncontradaException;
 import br.com.miltankbank.model.dto.ReceitaDTO;
 import br.com.miltankbank.model.entity.Receita;
 import br.com.miltankbank.model.repository.ReceitaRepository;
@@ -22,6 +23,6 @@ public class DetalhaReceitaService {
             ReceitaDTO receitaDTO = new ReceitaDTO(optReceita.get());
             return receitaDTO;
         }
-        return new ReceitaDTO();
+        throw new ReceitaNaoEncontradaException("Receita não foi encontrada para o id: " + idReceita);
     }
 }

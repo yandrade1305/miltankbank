@@ -1,7 +1,6 @@
 package br.com.miltankbank.controller;
 
 import java.net.URI;
-import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,10 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.miltankbank.exceptions.ReceitaDuplicadaException;
+import br.com.miltankbank.exceptions.receita.ListaReceitasVaziaException;
+import br.com.miltankbank.exceptions.receita.ListaReceitasVaziaPorDescricaoException;
+import br.com.miltankbank.exceptions.receita.ListaReceitasVaziaPorMesException;
+import br.com.miltankbank.exceptions.receita.ReceitaDuplicadaException;
+import br.com.miltankbank.exceptions.receita.ReceitaExcluidaException;
+import br.com.miltankbank.exceptions.receita.ReceitaNaoEncontradaException;
 import br.com.miltankbank.form.ReceitaForm;
-import br.com.miltankbank.model.dto.ListarReceitaDTO;
-import br.com.miltankbank.model.dto.ReceitaDTO;
 import br.com.miltankbank.service.AlteraReceitaService;
 import br.com.miltankbank.service.CadastroReceitaService;
 import br.com.miltankbank.service.DetalhaReceitaService;
@@ -63,30 +65,50 @@ public class ReceitaController {
 
     @DeleteMapping(path = "/receita/{idReceita}")
     public ResponseEntity<?> excluiReceita(@PathVariable Long idReceita){
-        return ResponseEntity.ok(excluiReceitaService.excluir(idReceita));
+        try {
+            return ResponseEntity.ok(excluiReceitaService.excluir(idReceita));
+        } catch (ReceitaExcluidaException ex) {
+            return ResponseEntity.badRequest().body(ex.getMensagem());
+        }
+       
     }
 
     @GetMapping(path = "/receita/{idReceita}")
-    public ResponseEntity<ReceitaDTO> detalhaReceita(@PathVariable Long idReceita){
-        ReceitaDTO receita = detalhaReceitaService.obterPor(idReceita);
-        if (receita.getIdReceita() == null) {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<?> detalhaReceita(@PathVariable Long idReceita){
+        try {
+            return ResponseEntity.ok(detalhaReceitaService.obterPor(idReceita));
+        } catch (ReceitaNaoEncontradaException ex) {
+            return ResponseEntity.badRequest().body(ex.getMensagem());
         }
-        return ResponseEntity.ok(receita);
     }
 
     @GetMapping(path = "/receitas")
-    public ResponseEntity<List<ListarReceitaDTO>> listarReceitas(){
-        return ResponseEntity.ok(listarReceitaService.listarReceitas());
+    public ResponseEntity<?> listarReceitas(){
+        try {
+            return ResponseEntity.ok(listarReceitaService.listarReceitas());
+        } catch (ListaReceitasVaziaException ex) {
+            return ResponseEntity.badRequest().body(ex.getMensagem());
+        }
+        
     }
 
     @GetMapping(value = "/receitas", params = "descricaoReceita")
-    public ResponseEntity<List<ListarReceitaDTO>> listarReceitasPesquisadas(@RequestParam(name = "descricaoReceita", required = false) String descricaoReceita){
-        return ResponseEntity.ok(listarReceitaService.listarReceitasPesquisadas(descricaoReceita));
+    public ResponseEntity<?> listarReceitasPesquisadas(@RequestParam(name = "descricaoReceita", required = false) String descricaoReceita){
+        try {
+            return ResponseEntity.ok(listarReceitaService.listarReceitasPesquisadas(descricaoReceita));
+        } catch (ListaReceitasVaziaPorDescricaoException ex) {
+            return ResponseEntity.badRequest().body(ex.getMensagem());
+        }
+        
     }
 
     @GetMapping(path = "/receitas/{ano}/{mes}")
-    public ResponseEntity<List<ListarReceitaDTO>> listarDespesasPorMes(@PathVariable Integer ano, @PathVariable Integer mes) {
-        return ResponseEntity.ok(listarReceitaService.listarReceitasPorMes(ano, mes));
+    public ResponseEntity<?> listarDespesasPorMes(@PathVariable Integer ano, @PathVariable Integer mes) {
+        try {
+            return ResponseEntity.ok(listarReceitaService.listarReceitasPorMes(ano, mes));
+        } catch (ListaReceitasVaziaPorMesException ex) {
+            return ResponseEntity.badRequest().body(ex.getMensagem());
+        }
+        
     }
 }

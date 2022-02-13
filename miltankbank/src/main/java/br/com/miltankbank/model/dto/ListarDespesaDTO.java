@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import br.com.miltankbank.model.entity.Despesa;
 
 public class ListarDespesaDTO {
+    private Long idDespesa;
     private String descricaoDespesa;
     private BigDecimal valorDespesa;
     private LocalDate dataDespesa;
@@ -12,10 +13,15 @@ public class ListarDespesaDTO {
 
 
     public ListarDespesaDTO(Despesa despesa) {
+        this.idDespesa = despesa.getIdDespesa();
         this.descricaoDespesa = despesa.getDescricaoDespesa();
         this.valorDespesa = despesa.getValorDespesa();
         this.dataDespesa = despesa.getDataDespesa();
         this.descricaoCategoria = despesa.getCategoria().getDescricaoCategoria();
+    }
+
+    public Long getIdDespesa() {
+        return this.idDespesa;
     }
 
     public String getDescricaoDespesa() {

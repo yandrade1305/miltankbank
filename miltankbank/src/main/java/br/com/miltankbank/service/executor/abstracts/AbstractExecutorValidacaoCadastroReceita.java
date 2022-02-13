@@ -3,7 +3,7 @@ package br.com.miltankbank.service.executor.abstracts;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import br.com.miltankbank.exceptions.ReceitaDuplicadaException;
+import br.com.miltankbank.exceptions.receita.ReceitaDuplicadaException;
 import br.com.miltankbank.form.ReceitaForm;
 import br.com.miltankbank.model.entity.Receita;
 import br.com.miltankbank.model.repository.ReceitaRepository;
