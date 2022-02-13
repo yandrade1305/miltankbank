@@ -24,7 +24,11 @@ Miltankbank é uma API Rest para controle de orçamento familiar desenvolvido po
 O nome foi pensado para aqueles que são assim como eu "mão-de-vaca", fazendo referência ao Pokémon Miltank.
 
 ## Funcionalidades
-As funcionalidades foram divididas por [Receita](#receita), [Despesa](#despesa) e [Resumo](#resumo).
+As funcionalidades foram divididas por [Autenticação](#autenticação), [Receita](#receita), [Despesa](#despesa) e [Resumo](#resumo).
+
+Antes de acessar qualquer Endpoint da API, você precisa se autenticar.
+
+Utilizando o Nome de Usuário "ashKetchum" e a Senha "Pikachu@123" vai gerar um JWT Token com duração de 1 dia
 
 As Receitas são todos os ganhos como renda fixa ou variável.
 
@@ -44,8 +48,9 @@ O resumo do mês contêm as seguintes informações:
 * Saldo final no mês
 * Valor total gasto no mês em cada uma das categorias
 
-
-
+### Autenticação
+* [/auth]
+  * [Autenticar Usuário](#autenticar-usuário)
 ### Receita
 * [/receitas]
   * [Cadastrar Receita](#cadastrar-receita)
@@ -83,6 +88,21 @@ O resumo do mês contêm as seguintes informações:
 | `DELETE` | Remove um registro do sistema.                        |
 
 </center>
+
+### Autenticar Usuário
+* Método HTTP
+  * POST
+* API Endpoint
+  * /auth
+* Response 200 (application/json)
+  ```json
+    {
+        "nomeUsuario": "ashKetchum",
+	    "senha": "Pikachu@123"
+    }
+  ```
+* Response 400 (application/json)
+  * O body da resposta é vazio.
 
 ### Cadastrar Receita
 * Método HTTP
@@ -122,8 +142,8 @@ O resumo do mês contêm as seguintes informações:
     }
   ]
   ```
-* Response 204 (application/json)
-  * O body da resposta retornada é vazia.
+* Response 400 (application/json)
+  * O body da resposta retornada é: "Não existe receitas cadastradas".
 
 ### Detalhar Receita
 * Método HTTP
@@ -139,8 +159,8 @@ O resumo do mês contêm as seguintes informações:
         "dataReceita": "data da receita."
     }
   ```
-* Response 204 (application/json)
-  * O body da resposta retornada é vazia.
+* Response 400 (application/json)
+  * O body da resposta retornada é: "Receita não foi encontrada para o id: {id}".
 
 ### Atualizar Receita
 * Método HTTP
@@ -165,7 +185,9 @@ O resumo do mês contêm as seguintes informações:
 * API Endpoint
   * receita/{id}
 * Response 200 (application/json)
-  * O body da resposta retornada é vazia.
+  * O body da resposta retornada é o id da receita.
+* Response 400 (application/json)
+  * O body da resposta retornada é: "A receita de id: {id} já foi excluída anteriormente".
 
 ### Buscar Receita por Descrição
 * Método HTTP
@@ -181,8 +203,8 @@ O resumo do mês contêm as seguintes informações:
         "dataReceita": "data da receita."
     }
   ```
-* Response 204 (application/json)
-  * O body da resposta retornada é vazia.
+* Response 400 (application/json)
+  * O body da resposta retornada é: "Não existe despesas para a descrição: ?descricaoReceita=descricaoBuscada".
 
 
 ### Listar Receita por Mês
@@ -207,8 +229,8 @@ O resumo do mês contêm as seguintes informações:
     }
   ]
   ```
-* Response 204 (application/json)
-  * O body da resposta retornada é vazia.
+* Response 400 (application/json)
+  * O body da resposta retornada é: "Não existe receitas para o mês {mes} do ano de {ano}".
 
 ### Cadastrar Despesa
 * Método HTTP
@@ -251,8 +273,8 @@ O resumo do mês contêm as seguintes informações:
     }
   ]
   ```
-* Response 204 (application/json)
-  * O body da resposta retornada é vazia.
+* Response 400 (application/json)
+  * O body da resposta retornada é: "Não existe despesas cadastradas".
 
 ### Detalhar Despesa
 * Método HTTP
@@ -272,8 +294,8 @@ O resumo do mês contêm as seguintes informações:
         }
     }
   ```
-* Response 204 (application/json)
-  * O body da resposta retornada é vazia.
+* Response 400 (application/json)
+  * O body da resposta retornada é: "Despesa não foi encontrada para o id: {id}".
 
 ### Atualizar Despesa
 * Método HTTP
@@ -299,7 +321,9 @@ O resumo do mês contêm as seguintes informações:
 * API Endpoint
   * despesa/{id}
 * Response 200 (application/json)
-  * O body da resposta retornada é vazia.
+  * O body da resposta retornada é o id da despesa.
+* Response 400 (application/json)
+  * O body da resposta retornada é: "A despesa de id: {id} já foi excluída anteriormente".
 
 ### Buscar Despesa por Descrição
 * Método HTTP
@@ -316,8 +340,8 @@ O resumo do mês contêm as seguintes informações:
 		"descricaoCategoria": "Descrição da categoria"
     }
   ```
-* Response 204 (application/json)
-  * O body da resposta retornada é vazia.
+* Response 400 (application/json)
+  * O body da resposta é: "Não existe despesas para a descrição: ?descricaoDespesa=descricaoBuscada".
 
 
 ### Listar Despesa por Mês
@@ -342,8 +366,8 @@ O resumo do mês contêm as seguintes informações:
     }
   ]
   ```
-* Response 204 (application/json)
-  * O body da resposta retornada é vazia.
+* Response 400 (application/json)
+  * O body da resposta é: "Não existe despesas para o mês {mes} do ano de {ano}".
 
 ### Detalhar Resumo por Mês
 * Método HTTP
@@ -366,9 +390,8 @@ O resumo do mês contêm as seguintes informações:
         "valorTotalGastoEmOutras": "Valor total gasto em Outras"
     }
   ```
-* Response 204 (application/json)
-  * O body da resposta retornada é vazia.
-
+* Response 400 (application/json)
+  * O body da resposta é: "Não existe resumo para o mês {mes} do ano de {ano}".
 ### Pessoas Desenvolvedoras
 
 [<p align="center"><img src="https://avatars.githubusercontent.com/u/48693812?s=400&u=e3b46f180b450fc7e0bdc65bbbf68e4a77f8d121&v=4" width=115 ><br><sub>Yan Andrade de Sena</sub>](https://github.com/yandrade1305)</p>
