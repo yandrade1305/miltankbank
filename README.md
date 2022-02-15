@@ -1,5 +1,5 @@
 ## MiltankBank
-![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
+![Badge Concluído](http://img.shields.io/static/v1?label=STATUS&message=CONCLUÍDO&color=GREEN&style=for-the-badge)
 ![Badge Java](http://img.shields.io/static/v1?label=JAVA&message=11.0.13&color=yellow&style=for-the-badge)
 ![Badge Spring](http://img.shields.io/static/v1?label=SPRING&message=2.6.2&color=GREEN&style=for-the-badge)
 ![Badge PostgreSQL](http://img.shields.io/static/v1?label=POSTGRESQL&message=13.4&color=blue&style=for-the-badge)
