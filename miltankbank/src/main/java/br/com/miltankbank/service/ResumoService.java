@@ -67,7 +67,7 @@ public class ResumoService {
             }
         }
         for (Receita receita : listaReceitasPorMesEAno) {
-            valorTotalReceita.add(receita.getValorReceita());
+            valorTotalReceita = valorTotalReceita.add(receita.getValorReceita());
         }
         saldoFinal = valorTotalReceita.subtract(valorTotalDespesa);
         return new ResumoDTO(valorTotalReceita, valorTotalDespesa, saldoFinal, valorTotalGastoEmAlimentacao,
