@@ -3,9 +3,7 @@
 ![Badge Java](http://img.shields.io/static/v1?label=JAVA&message=11.0.13&color=yellow&style=for-the-badge)
 ![Badge Spring](http://img.shields.io/static/v1?label=SPRING&message=2.6.2&color=GREEN&style=for-the-badge)
 ![Badge PostgreSQL](http://img.shields.io/static/v1?label=POSTGRESQL&message=13.4&color=blue&style=for-the-badge)
-<p align="center">
-   <img src="https://user-images.githubusercontent.com/48693812/154162713-72ef0e01-8baa-40fa-93a6-c0965e543770.png"/>
-</p>
+
 <p align="center">
   <img src="https://user-images.githubusercontent.com/48693812/152577973-e5bd1259-456a-4506-9953-db3311c03da5.png" />
 </p>
@@ -407,3 +405,7 @@ Com planejamento e muitas horas de estudo e desenvolvendo consegui chegar ao tã
 Tive diversas adversidades (principalmente esta última semana que não consegui fazer o deploy, foi o único requisito que não consegui implementar) mas isso não invalida todo o aprendizado que consegui quando "sai do outro lado", é aquela famosa frase <i>"Feito é melhor do que perfeito"<i>.
 
 O meu mais sincero obrigado a toda equipe do Alura e a dois profissionais que admiro que são eles: <a href="https://www.linkedin.com/in/ivan-santos-37289436/">Ivan Santos</a> e Welder Pinheiro Luz (E-mail: <a href="wweellddeerr@gmail.com">wweellddeerr@gmail.com</a>)
+	
+<p align="center">
+   <img src="https://user-images.githubusercontent.com/48693812/154162713-72ef0e01-8baa-40fa-93a6-c0965e543770.png"/>
+</p>
