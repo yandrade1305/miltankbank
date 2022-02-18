@@ -409,7 +409,6 @@ O meu mais sincero obrigado a toda equipe do Alura e a dois profissionais que ad
 	
 <p align="center">
    <img src="https://user-images.githubusercontent.com/48693812/154162713-72ef0e01-8baa-40fa-93a6-c0965e543770.png"/>
-</p>
-<p align="center">
-   <img src="https://user-images.githubusercontent.com/48693812/154683367-36396ded-07bd-41e8-b979-0df490770d3a.png"/>
+   <img src="https://user-images.githubusercontent.com/48693812/154685351-c25cbd1b-633a-420c-a366-2cf0179acc37.png"/>
+
 </p>
