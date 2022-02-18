@@ -406,6 +406,10 @@ Tive diversas adversidades (principalmente esta última semana que não consegui
 
 O meu mais sincero obrigado a toda equipe do Alura e a dois profissionais que admiro que são eles: <a href="https://www.linkedin.com/in/ivan-santos-37289436/">Ivan Santos</a> e Welder Pinheiro Luz (E-mail: <a href="wweellddeerr@gmail.com">wweellddeerr@gmail.com</a>)
 	
+	
 <p align="center">
    <img src="https://user-images.githubusercontent.com/48693812/154162713-72ef0e01-8baa-40fa-93a6-c0965e543770.png"/>
+</p>
+<p align="center">
+   <img src="https://user-images.githubusercontent.com/48693812/154683367-36396ded-07bd-41e8-b979-0df490770d3a.png"/>
 </p>
