@@ -9,7 +9,7 @@ import br.com.miltankbank.model.entity.Receita;
 import br.com.miltankbank.model.repository.ReceitaRepository;
 import br.com.miltankbank.service.acao.AcaoCadastroReceita;
 
-public class AbstractExecutorValidacaoCadastroReceita implements AcaoCadastroReceita{
+public abstract class AbstractExecutorValidacaoCadastroReceita implements AcaoCadastroReceita{
     private final ReceitaRepository receitaRepository;
 
     public AbstractExecutorValidacaoCadastroReceita(ReceitaRepository receitaRepository) {

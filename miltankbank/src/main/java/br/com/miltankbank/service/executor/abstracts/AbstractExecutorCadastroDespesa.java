@@ -6,7 +6,7 @@ import br.com.miltankbank.model.entity.Despesa;
 import br.com.miltankbank.model.repository.DespesaRepository;
 import br.com.miltankbank.service.acao.AcaoCadastroDespesa;
 
-public class AbstractExecutorCadastroDespesa implements AcaoCadastroDespesa{
+public class abstract AbstractExecutorCadastroDespesa implements AcaoCadastroDespesa{
 
     private final DespesaRepository despesaRepository;
 
